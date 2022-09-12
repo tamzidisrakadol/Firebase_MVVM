@@ -5,6 +5,13 @@ plugins {
 android {
     compileSdk 32
 
+    dataBinding{
+        enabled = true
+    }
+    viewBinding{
+        enabled=true
+    }
+
     defaultConfig {
         applicationId "com.example.login_mvvm"
         minSdk 21

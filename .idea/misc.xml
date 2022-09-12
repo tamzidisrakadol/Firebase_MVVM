@@ -3,10 +3,13 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/android project/ANDROID PRACTISE/Login_MVVM/app/src/main/res/drawable/card_shape.xml" value="0.226" />
         <entry key="..\:/android project/ANDROID PRACTISE/Login_MVVM/app/src/main/res/layout/activity_main.xml" value="0.22826086956521738" />
         <entry key="..\:/android project/ANDROID PRACTISE/Login_MVVM/app/src/main/res/layout/fragment_home.xml" value="0.22826086956521738" />
+        <entry key="..\:/android project/ANDROID PRACTISE/Login_MVVM/app/src/main/res/layout/fragment_login.xml" value="0.2" />
         <entry key="..\:/android project/ANDROID PRACTISE/Login_MVVM/app/src/main/res/layout/fragment_profile.xml" value="0.22826086956521738" />
         <entry key="..\:/android project/ANDROID PRACTISE/Login_MVVM/app/src/main/res/layout/fragment_registration.xml" value="0.22826086956521738" />
+        <entry key="..\:/android project/ANDROID PRACTISE/Login_MVVM/app/src/main/res/layout/fragment_splash.xml" value="0.2101851851851852" />
       </map>
     </option>
   </component>

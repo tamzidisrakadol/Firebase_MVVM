@@ -1,14 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#F8F8FF"
+    android:orientation="vertical"
     tools:context=".View.Splash">
-
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <Space
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="@dimen/_50sdp"/>
 
-</FrameLayout>
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_200sdp"
+        android:src="@drawable/login"
+        android:scaleType="fitCenter"/>
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_50sdp"/>
+
+    <Button
+        android:layout_width="@dimen/_150sdp"
+        android:layout_height="@dimen/_40sdp"
+        android:layout_gravity="center"
+        android:text="Login"
+        android:textSize="@dimen/_15sdp"
+        android:backgroundTint="#2341E4"/>
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_20sdp"/>
+
+
+    <Button
+        android:layout_width="@dimen/_150sdp"
+        android:layout_height="@dimen/_40sdp"
+        android:layout_gravity="center"
+        android:text="Register"
+        android:textSize="@dimen/_15sdp"
+        android:backgroundTint="#2341E4"/>
+
+</LinearLayout>
