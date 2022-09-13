@@ -21,6 +21,7 @@
         android:layout_height="@dimen/_50sdp"/>
 
     <Button
+        android:id="@+id/splashloginBtn"
         android:layout_width="@dimen/_150sdp"
         android:layout_height="@dimen/_40sdp"
         android:layout_gravity="center"
@@ -34,6 +35,7 @@
 
 
     <Button
+        android:id="@+id/splashRegisterBtn"
         android:layout_width="@dimen/_150sdp"
         android:layout_height="@dimen/_40sdp"
         android:layout_gravity="center"

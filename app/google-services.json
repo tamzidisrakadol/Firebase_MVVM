@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1080203939494",
+    "project_id": "mvvm-login-and-registration",
+    "storage_bucket": "mvvm-login-and-registration.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1080203939494:android:8bc8f14dac8d0c2e7f2e67",
+        "android_client_info": {
+          "package_name": "com.example.login_mvvm"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1080203939494-jn4j567le6ai7ass3sgg7mdbm9p7b8kt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAJRneIp0bR6_YgJMO9sJZ3wdxbi_7vEXQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1080203939494-jn4j567le6ai7ass3sgg7mdbm9p7b8kt.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
