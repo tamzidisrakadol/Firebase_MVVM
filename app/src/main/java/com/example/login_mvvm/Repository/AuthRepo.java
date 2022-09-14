@@ -1,6 +1,7 @@
 package com.example.login_mvvm.Repository;
 
 import android.app.Application;
+import android.app.ProgressDialog;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -19,6 +20,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.HashMap;
 import java.util.Map;
 
+
 public class AuthRepo {
     Application application;
     FirebaseAuth firebaseAuth;
@@ -31,41 +33,38 @@ public class AuthRepo {
         firebaseUserMutableLiveData = new MutableLiveData<>();
     }
 
-    public void register(String email, String password) {
+    public void register(String name,String email,String password,String address) {
         firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
-                    firebaseUserMutableLiveData.postValue(firebaseAuth.getCurrentUser());
-//                    Map<String, Object> map = new HashMap<>();
-//                    map.put("name", name);
-//                    map.put("email", email);
-//                    map.put("address", address);
-//                    FirebaseDatabase.getInstance().getReference()
-//                            .child("Users")
-//                            .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-//                            .updateChildren(map)
-//                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-//                                @Override
-//                                public void onSuccess(Void unused) {
-//                                    Log.d("tag", "sucess");
-//                                }
-//                            }).addOnFailureListener(new OnFailureListener() {
-//                                @Override
-//                                public void onFailure(@NonNull Exception e) {
-//                                    Log.d("tag", "msg " + e.getMessage().toString());
-//                                    Toast.makeText(application, e.getMessage(), Toast.LENGTH_SHORT).show();
-//                                }
-//                            });
+                    Map<String, Object> map = new HashMap<>();
+                    map.put("name", name);
+                    map.put("email", email);
+                    map.put("address", address);
+                    FirebaseDatabase.getInstance().getReference()
+                            .child("Users")
+                            .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                            .updateChildren(map)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void unused) {
+                                    Toast.makeText(application, "data saved", Toast.LENGTH_SHORT).show();
+                                }
+                            }).addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+
+                                    Toast.makeText(application, e.getMessage(), Toast.LENGTH_SHORT).show();
+                                }
+                            });
                 } else {
-                    Log.d("tag", "onmsg " + task.getException().toString());
                     Toast.makeText(application, task.getException().toString(), Toast.LENGTH_SHORT).show();
                 }
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Log.d("tag", "msg " + e.getMessage().toString());
                 Toast.makeText(application, e.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });

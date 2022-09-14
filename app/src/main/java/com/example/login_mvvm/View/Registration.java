@@ -47,42 +47,35 @@ public class Registration extends Fragment {
         ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
         navController = Navigation.findNavController(view);
 
-//        //viewmodel
-//        authViewModel = new ViewModelProvider(requireActivity()).get(AuthViewModel.class);
-//
-//        authViewModel.getUserMutableLiveData().observe(getViewLifecycleOwner(), new Observer<FirebaseUser>() {
-//            @Override
-//            public void onChanged(FirebaseUser firebaseUser) {
-//                Toast.makeText(getContext(), "User Created", Toast.LENGTH_SHORT).show();
-//            }
-//        });
+        //viewmodel
+        authViewModel = new ViewModelProvider(requireActivity()).get(AuthViewModel.class);
 
-        String name = fragmentRegistrationBinding.registerUserName.getText().toString();
-        String email = fragmentRegistrationBinding.registerEmail.getText().toString();
-        String pass = fragmentRegistrationBinding.registerPassword.getText().toString();
-        String address = fragmentRegistrationBinding.registerAddress.getText().toString();
-
-        fragmentRegistrationBinding.registerBtn.setOnClickListener(v -> {
-            if (name.length()==0 && email.length()==0 && pass.length()==0 && address.length()==0){
-                return;
-            }else {
-               FirebaseAuth.getInstance().createUserWithEmailAndPassword(email,pass).addOnCompleteListener(getActivity(),new OnCompleteListener<AuthResult>() {
-                   @Override
-                   public void onComplete(@NonNull Task<AuthResult> task) {
-                       if (task.isSuccessful()){
-                           Toast.makeText(getContext(), "user created", Toast.LENGTH_SHORT).show();
-                       }else{
-                           Toast.makeText(getContext(), task.getException().toString(), Toast.LENGTH_SHORT).show();
-                       }
-                   }
-               }).addOnFailureListener(new OnFailureListener() {
-                   @Override
-                   public void onFailure(@NonNull Exception e) {
-                       Toast.makeText(getContext(), "msg"+e.getMessage(), Toast.LENGTH_SHORT).show();
-                   }
-               });
+        authViewModel.getUserMutableLiveData().observe(getViewLifecycleOwner(), new Observer<FirebaseUser>() {
+            @Override
+            public void onChanged(FirebaseUser firebaseUser) {
+                Toast.makeText(getContext(), "User Created", Toast.LENGTH_SHORT).show();
             }
         });
+
+
+
+        fragmentRegistrationBinding.registerBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                String name = fragmentRegistrationBinding.registerUserName.getText().toString();
+                String email = fragmentRegistrationBinding.registerEmail.getText().toString();
+                String pass = fragmentRegistrationBinding.registerPassword.getText().toString();
+                String address = fragmentRegistrationBinding.registerAddress.getText().toString();
+
+
+                if(isDataValied()){
+                    authViewModel.authRegister(name,email,pass,address);
+                }
+            }
+        });
+
+
         fragmentRegistrationBinding.registerLoginTV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -91,5 +84,36 @@ public class Registration extends Fragment {
         });
 
     }
+
+
+    private boolean isDataValied(){
+        if (fragmentRegistrationBinding.registerUserName.getText().toString().isEmpty()) {
+            fragmentRegistrationBinding.registerUserName.setError("plz enter your name");
+            fragmentRegistrationBinding.registerUserName.requestFocus();
+            return false;
+        }
+        else if (fragmentRegistrationBinding.registerEmail.getText().toString().isEmpty()) {
+            fragmentRegistrationBinding.registerEmail.setError("plz enter your email");
+            fragmentRegistrationBinding.registerEmail.requestFocus();
+            return false;
+        }
+        else if (fragmentRegistrationBinding.registerPassword.getText().toString().isEmpty()) {
+            fragmentRegistrationBinding.registerPassword.setError("plz enter your password");
+            fragmentRegistrationBinding.registerPassword.requestFocus();
+            return false;
+        }
+        else if(fragmentRegistrationBinding.registerPassword.getText().toString().length()<6){
+            fragmentRegistrationBinding.registerPassword.setError("plz enter more than 6 digit for your password");
+            fragmentRegistrationBinding.registerPassword.requestFocus();
+            return false;
+        }
+        else if(fragmentRegistrationBinding.registerAddress.getText().toString().length()<6){
+            fragmentRegistrationBinding.registerAddress.setError("plz enter more than 6 digit for your password");
+            fragmentRegistrationBinding.registerAddress.requestFocus();
+            return false;
+        }
+        return true;
+    }
+
 
 }

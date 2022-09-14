@@ -21,8 +21,8 @@ public class AuthViewModel extends AndroidViewModel {
     }
 
 
-    public void authRegister(String email, String pass) {
-        authRepo.register( email, pass);
+    public void authRegister(String name,String email,String pass,String address) {
+        authRepo.register(name,email,pass,address);
     }
 
     public MutableLiveData<FirebaseUser> getUserMutableLiveData() {
