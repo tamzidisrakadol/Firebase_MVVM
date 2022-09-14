@@ -14,10 +14,16 @@ import androidx.navigation.Navigation;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.login_mvvm.R;
 import com.example.login_mvvm.ViewModels.AuthViewModel;
 import com.example.login_mvvm.databinding.FragmentRegistrationBinding;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 
@@ -26,10 +32,6 @@ public class Registration extends Fragment {
     NavController navController;
     AuthViewModel authViewModel;
 
-
-    public Registration() {
-        // Required empty public constructor
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -45,8 +47,15 @@ public class Registration extends Fragment {
         ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
         navController = Navigation.findNavController(view);
 
-        //viewmodel
-        authViewModel = new ViewModelProvider(requireActivity()).get(AuthViewModel.class);
+//        //viewmodel
+//        authViewModel = new ViewModelProvider(requireActivity()).get(AuthViewModel.class);
+//
+//        authViewModel.getUserMutableLiveData().observe(getViewLifecycleOwner(), new Observer<FirebaseUser>() {
+//            @Override
+//            public void onChanged(FirebaseUser firebaseUser) {
+//                Toast.makeText(getContext(), "User Created", Toast.LENGTH_SHORT).show();
+//            }
+//        });
 
         String name = fragmentRegistrationBinding.registerUserName.getText().toString();
         String email = fragmentRegistrationBinding.registerEmail.getText().toString();
@@ -57,11 +66,30 @@ public class Registration extends Fragment {
             if (name.length()==0 && email.length()==0 && pass.length()==0 && address.length()==0){
                 return;
             }else {
-                authViewModel.authRegister(name,email,pass,address);
+               FirebaseAuth.getInstance().createUserWithEmailAndPassword(email,pass).addOnCompleteListener(getActivity(),new OnCompleteListener<AuthResult>() {
+                   @Override
+                   public void onComplete(@NonNull Task<AuthResult> task) {
+                       if (task.isSuccessful()){
+                           Toast.makeText(getContext(), "user created", Toast.LENGTH_SHORT).show();
+                       }else{
+                           Toast.makeText(getContext(), task.getException().toString(), Toast.LENGTH_SHORT).show();
+                       }
+                   }
+               }).addOnFailureListener(new OnFailureListener() {
+                   @Override
+                   public void onFailure(@NonNull Exception e) {
+                       Toast.makeText(getContext(), "msg"+e.getMessage(), Toast.LENGTH_SHORT).show();
+                   }
+               });
+            }
+        });
+        fragmentRegistrationBinding.registerLoginTV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                navController.navigate(R.id.action_registration_to_login);
             }
         });
 
-
-
     }
+
 }

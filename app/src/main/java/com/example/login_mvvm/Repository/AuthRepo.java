@@ -1,5 +1,6 @@
 package com.example.login_mvvm.Repository;
 
+import android.app.Application;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -19,51 +20,58 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class AuthRepo {
-    FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-    MutableLiveData<FirebaseUser> firebaseUserMutableLiveData = new MutableLiveData<>();
+    Application application;
+    FirebaseAuth firebaseAuth;
+    public MutableLiveData<FirebaseUser> firebaseUserMutableLiveData;
 
-    public MutableLiveData<FirebaseUser> getUserLiveData() {
-        return firebaseUserMutableLiveData;
+
+    public AuthRepo(Application application) {
+        this.application = application;
+        firebaseAuth =FirebaseAuth.getInstance();
+        firebaseUserMutableLiveData = new MutableLiveData<>();
     }
 
-
-    public void register(String email,String password,String name,String address){
-        firebaseAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+    public void register(String email, String password) {
+        firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
-               if (task.isSuccessful()){
-                   Map<String,Object> map = new HashMap<>();
-                   map.put("name",name);
-                   map.put("email",email);
-                   map.put("address",address);
-                   FirebaseDatabase.getInstance().getReference()
-                           .child("Users")
-                           .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                           .updateChildren(map)
-                           .addOnSuccessListener(new OnSuccessListener<Void>() {
-                               @Override
-                               public void onSuccess(Void unused) {
-                                   Log.d("tag","sucess");
-                               }
-                           }).addOnFailureListener(new OnFailureListener() {
-                               @Override
-                               public void onFailure(@NonNull Exception e) {
-                                   Log.d("tag","msg "+e.getMessage().toString());
-                               }
-                           });
-               }else{
-                   Log.d("tag","onmsg "+task.getException().toString());
-               }
+                if (task.isSuccessful()) {
+                    firebaseUserMutableLiveData.postValue(firebaseAuth.getCurrentUser());
+//                    Map<String, Object> map = new HashMap<>();
+//                    map.put("name", name);
+//                    map.put("email", email);
+//                    map.put("address", address);
+//                    FirebaseDatabase.getInstance().getReference()
+//                            .child("Users")
+//                            .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+//                            .updateChildren(map)
+//                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+//                                @Override
+//                                public void onSuccess(Void unused) {
+//                                    Log.d("tag", "sucess");
+//                                }
+//                            }).addOnFailureListener(new OnFailureListener() {
+//                                @Override
+//                                public void onFailure(@NonNull Exception e) {
+//                                    Log.d("tag", "msg " + e.getMessage().toString());
+//                                    Toast.makeText(application, e.getMessage(), Toast.LENGTH_SHORT).show();
+//                                }
+//                            });
+                } else {
+                    Log.d("tag", "onmsg " + task.getException().toString());
+                    Toast.makeText(application, task.getException().toString(), Toast.LENGTH_SHORT).show();
+                }
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Log.d("tag","msg "+e.getMessage().toString());
+                Log.d("tag", "msg " + e.getMessage().toString());
+                Toast.makeText(application, e.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
-
     }
 
-
-
+    public MutableLiveData<FirebaseUser> getFirebaseUserMutableLiveData() {
+        return firebaseUserMutableLiveData;
+    }
 }

@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "1080203939494",
+    "firebase_url": "https://mvvm-login-and-registration-default-rtdb.firebaseio.com",
     "project_id": "mvvm-login-and-registration",
     "storage_bucket": "mvvm-login-and-registration.appspot.com"
   },

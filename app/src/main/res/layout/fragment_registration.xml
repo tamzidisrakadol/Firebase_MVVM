@@ -108,14 +108,14 @@
 
             <Button
                 android:id="@+id/registerBtn"
-                android:layout_width="@dimen/_120sdp"
-                android:layout_height="@dimen/_40sdp"
                 style="@style/Widget.Material3.Button"
-                android:backgroundTint="#2341E4"
+                android:layout_width="@dimen/_120sdp"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:backgroundTint="#2341E4"
+                android:drawableRight="@drawable/egistration_24"
                 android:text="Register"
-                android:textSize="@dimen/_15sdp"
-                android:drawableRight="@drawable/egistration_24"/>
+                android:textSize="@dimen/_15sdp" />
 
             <Space
                 android:layout_width="match_parent"

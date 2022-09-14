@@ -1,6 +1,7 @@
 package com.example.login_mvvm.View;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
@@ -8,9 +9,11 @@ import androidx.navigation.ui.NavigationUI;
 import android.os.Bundle;
 
 import com.example.login_mvvm.R;
+import com.example.login_mvvm.ViewModels.AuthViewModel;
 
 public class MainActivity extends AppCompatActivity {
     NavController navController;
+    AuthViewModel authViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
