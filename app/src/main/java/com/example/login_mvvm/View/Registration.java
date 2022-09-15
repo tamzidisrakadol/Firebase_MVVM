@@ -1,5 +1,6 @@
 package com.example.login_mvvm.View;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -44,30 +45,29 @@ public class Registration extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        //hide actionbar
         ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
         navController = Navigation.findNavController(view);
 
-        //viewmodel
-        authViewModel = new ViewModelProvider(requireActivity()).get(AuthViewModel.class);
 
+        //viewModel & live observer
+        authViewModel = new ViewModelProvider(requireActivity()).get(AuthViewModel.class);
         authViewModel.getUserMutableLiveData().observe(getViewLifecycleOwner(), new Observer<FirebaseUser>() {
             @Override
             public void onChanged(FirebaseUser firebaseUser) {
-                Toast.makeText(getContext(), "User Created", Toast.LENGTH_SHORT).show();
+                navController.navigate(R.id.action_registration_to_home2);
             }
         });
 
-
-
+        //registerbtn -> creating user & navigate to home
         fragmentRegistrationBinding.registerBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 String name = fragmentRegistrationBinding.registerUserName.getText().toString();
                 String email = fragmentRegistrationBinding.registerEmail.getText().toString();
                 String pass = fragmentRegistrationBinding.registerPassword.getText().toString();
                 String address = fragmentRegistrationBinding.registerAddress.getText().toString();
-
 
                 if(isDataValied()){
                     authViewModel.authRegister(name,email,pass,address);
@@ -75,7 +75,7 @@ public class Registration extends Fragment {
             }
         });
 
-
+        //register -> login btn
         fragmentRegistrationBinding.registerLoginTV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -85,7 +85,7 @@ public class Registration extends Fragment {
 
     }
 
-
+    //checking data of user
     private boolean isDataValied(){
         if (fragmentRegistrationBinding.registerUserName.getText().toString().isEmpty()) {
             fragmentRegistrationBinding.registerUserName.setError("plz enter your name");
@@ -107,8 +107,8 @@ public class Registration extends Fragment {
             fragmentRegistrationBinding.registerPassword.requestFocus();
             return false;
         }
-        else if(fragmentRegistrationBinding.registerAddress.getText().toString().length()<6){
-            fragmentRegistrationBinding.registerAddress.setError("plz enter more than 6 digit for your password");
+        else if(fragmentRegistrationBinding.registerAddress.getText().toString().isEmpty()){
+            fragmentRegistrationBinding.registerAddress.setError("plz enter your address");
             fragmentRegistrationBinding.registerAddress.requestFocus();
             return false;
         }
