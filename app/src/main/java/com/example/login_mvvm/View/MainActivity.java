@@ -31,24 +31,4 @@ public class MainActivity extends AppCompatActivity {
         return super.onSupportNavigateUp();
     }
 
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        FragmentManager manager = getSupportFragmentManager();
-        if (manager.getBackStackEntryCount()>0){
-            manager.popBackStack();
-        }else{
-            new AlertDialog.Builder(this)
-                    .setTitle("Really Exit?")
-                    .setMessage("Are you sure you want to exit?")
-                    .setNegativeButton(android.R.string.no, null)
-                    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface arg0, int arg1) {
-                            finish();
-                            moveTaskToBack(true);
-                        }
-                    }).create().show();
-        }
-
-    }
 }

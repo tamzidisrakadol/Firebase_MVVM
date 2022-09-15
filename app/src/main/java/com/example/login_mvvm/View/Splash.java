@@ -1,9 +1,12 @@
 package com.example.login_mvvm.View;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
@@ -20,6 +23,29 @@ import com.example.login_mvvm.databinding.FragmentSplashBinding;
 public class Splash extends Fragment {
     FragmentSplashBinding fragmentSplashBinding;
     NavController navController;
+
+
+    //backpress
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        OnBackPressedCallback backPressedCallback = new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                new AlertDialog.Builder(getContext())
+                        .setTitle("Really Exit?")
+                        .setMessage("Are you sure you want to exit?")
+                        .setNegativeButton(android.R.string.no, null)
+                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface arg0, int arg1) {
+                                requireActivity().finish();
+                            }
+                        }).create()
+                        .show();
+            }
+        };
+        requireActivity().getOnBackPressedDispatcher().addCallback(this,backPressedCallback);
+    }
 
 
 

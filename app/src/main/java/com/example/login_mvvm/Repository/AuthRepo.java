@@ -28,12 +28,19 @@ public class AuthRepo {
     Application application;
     FirebaseAuth firebaseAuth;
     public MutableLiveData<FirebaseUser> firebaseUserMutableLiveData;
+    public MutableLiveData<Boolean> logUserLiveData;
 
     //authrepo constructor
     public AuthRepo(Application application) {
         this.application = application;
         firebaseAuth =FirebaseAuth.getInstance();
         firebaseUserMutableLiveData = new MutableLiveData<>();
+        logUserLiveData = new MutableLiveData<>();
+
+        if (firebaseAuth.getCurrentUser() != null){
+            firebaseUserMutableLiveData.postValue(firebaseAuth.getCurrentUser());
+            logUserLiveData.postValue(false);
+        }
     }
 
     //create register method
@@ -42,7 +49,6 @@ public class AuthRepo {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
-
                     firebaseUserMutableLiveData.postValue(firebaseAuth.getCurrentUser());
                     //save data to Firebase_Database
                     Map<String, Object> map = new HashMap<>();
@@ -76,7 +82,36 @@ public class AuthRepo {
         });
     }
 
+
+    //login method
+    public void loginUser(String email,String password){
+        firebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if (task.isSuccessful()){
+                    firebaseUserMutableLiveData.postValue(firebaseAuth.getCurrentUser());
+                    Toast.makeText(application, "Login Successful", Toast.LENGTH_SHORT).show();
+                }
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+
+            }
+        });
+    }
+
+    //signOut method
+    public void logOut(){
+        firebaseAuth.signOut();
+        logUserLiveData.postValue(true);
+    }
+
     public MutableLiveData<FirebaseUser> getFirebaseUserMutableLiveData() {
         return firebaseUserMutableLiveData;
+    }
+
+    public MutableLiveData<Boolean> getLogUserLiveData() {
+        return logUserLiveData;
     }
 }

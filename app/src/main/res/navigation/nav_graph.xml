@@ -74,8 +74,8 @@
             android:id="@+id/action_home2_to_profile"
             app:destination="@id/profile" />
         <action
-            android:id="@+id/action_home2_to_splash"
-            app:destination="@id/splash" />
+            android:id="@+id/action_home2_to_login"
+            app:destination="@id/login" />
     </fragment>
     <fragment
         android:id="@+id/profile"
@@ -85,5 +85,8 @@
         <action
             android:id="@+id/action_profile_to_home2"
             app:destination="@id/home2" />
+        <action
+            android:id="@+id/action_profile_to_login"
+            app:destination="@id/login" />
     </fragment>
 </navigation>

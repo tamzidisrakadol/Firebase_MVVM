@@ -13,6 +13,8 @@ import com.google.firebase.auth.FirebaseUser;
 public class AuthViewModel extends AndroidViewModel {
     AuthRepo authRepo;
     MutableLiveData<FirebaseUser> userMutableLiveData;
+    MutableLiveData<Boolean> logUser;
+
 
 
     //authViewModel constructor
@@ -20,6 +22,7 @@ public class AuthViewModel extends AndroidViewModel {
         super(application);
         authRepo = new AuthRepo(application);
         userMutableLiveData = authRepo.getFirebaseUserMutableLiveData();
+        logUser = authRepo.getLogUserLiveData();
     }
 
     //authregister
@@ -27,7 +30,23 @@ public class AuthViewModel extends AndroidViewModel {
         authRepo.register(name,email,pass,address);
     }
 
+    //login user
+    public void loginUser(String email,String pass){
+        authRepo.loginUser(email, pass);
+    }
+
+    //logout user
+    public void logOut(){
+        authRepo.logOut();
+    }
+
     public MutableLiveData<FirebaseUser> getUserMutableLiveData() {
         return userMutableLiveData;
     }
+
+    public MutableLiveData<Boolean> getLogUser() {
+        return logUser;
+    }
+
+
 }
