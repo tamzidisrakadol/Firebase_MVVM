@@ -15,8 +15,6 @@ public class AuthViewModel extends AndroidViewModel {
     MutableLiveData<FirebaseUser> userMutableLiveData;
     MutableLiveData<Boolean> logUser;
 
-
-
     //authViewModel constructor
     public AuthViewModel(@NonNull Application application) {
         super(application);
@@ -47,6 +45,5 @@ public class AuthViewModel extends AndroidViewModel {
     public MutableLiveData<Boolean> getLogUser() {
         return logUser;
     }
-
 
 }

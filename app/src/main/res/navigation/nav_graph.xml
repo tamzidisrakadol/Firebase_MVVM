@@ -24,6 +24,9 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right"/>
+        <action
+            android:id="@+id/action_splash_to_home2"
+            app:destination="@id/home2" />
     </fragment>
     <fragment
         android:id="@+id/login"
@@ -86,7 +89,7 @@
             android:id="@+id/action_profile_to_home2"
             app:destination="@id/home2" />
         <action
-            android:id="@+id/action_profile_to_login"
-            app:destination="@id/login" />
+            android:id="@+id/action_profile_to_splash"
+            app:destination="@id/splash" />
     </fragment>
 </navigation>

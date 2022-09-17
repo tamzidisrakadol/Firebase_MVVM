@@ -16,10 +16,12 @@ import androidx.navigation.Navigation;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.login_mvvm.R;
 import com.example.login_mvvm.ViewModels.AuthViewModel;
 import com.example.login_mvvm.databinding.FragmentHomeBinding;
+import com.google.firebase.auth.FirebaseUser;
 
 public class Home extends Fragment {
     FragmentHomeBinding fragmentHomeBinding;
@@ -59,14 +61,16 @@ public class Home extends Fragment {
     }
 
 
-
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         navController  = Navigation.findNavController(view);
         authViewModel = new ViewModelProvider(requireActivity()).get(AuthViewModel.class);
-
-
+        authViewModel.getUserMutableLiveData().observe(getViewLifecycleOwner(), firebaseUser -> {
+            if (firebaseUser!=null){
+                fragmentHomeBinding.emailTV.setText(firebaseUser.getEmail());
+            }
+        });
 
         fragmentHomeBinding.homeProfileImg.setOnClickListener(v -> {
             navController.navigate(R.id.action_home2_to_profile);

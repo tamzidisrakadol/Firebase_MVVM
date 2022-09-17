@@ -56,7 +56,9 @@ public class Registration extends Fragment {
         authViewModel.getUserMutableLiveData().observe(getViewLifecycleOwner(), new Observer<FirebaseUser>() {
             @Override
             public void onChanged(FirebaseUser firebaseUser) {
-                navController.navigate(R.id.action_registration_to_home2);
+                if (firebaseUser != null){
+                    navController.navigate(R.id.action_registration_to_home2);
+                }
             }
         });
 

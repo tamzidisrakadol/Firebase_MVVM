@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,7 @@ import android.view.ViewGroup;
 import com.example.login_mvvm.R;
 import com.example.login_mvvm.ViewModels.AuthViewModel;
 import com.example.login_mvvm.databinding.FragmentProfileBinding;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 public class Profile extends Fragment {
@@ -37,23 +39,20 @@ public class Profile extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         navController= Navigation.findNavController(view);
-        authViewModel=new ViewModelProvider(requireActivity()).get(AuthViewModel.class);
-        authViewModel.getUserMutableLiveData().observe(getViewLifecycleOwner(), new Observer<FirebaseUser>() {
-            @Override
-            public void onChanged(FirebaseUser firebaseUser) {
 
-            }
+        authViewModel=new ViewModelProvider(requireActivity()).get(AuthViewModel.class);
+        authViewModel.getUserMutableLiveData().observe(getViewLifecycleOwner(), firebaseUser -> {
+
         });
-        authViewModel.getLogUser().observe(getViewLifecycleOwner(), new Observer<Boolean>() {
-            @Override
-            public void onChanged(Boolean loggout) {
-                if (loggout){
-                    navController.navigate(R.id.action_profile_to_login);
-                }
+        authViewModel.getLogUser().observe(getViewLifecycleOwner(), loggout -> {
+            if (loggout){
+                navController.navigate(R.id.action_profile_to_splash);
+
             }
         });
 
         fragmentProfileBinding.profileSignOutBtn.setOnClickListener(v ->
                 authViewModel.logOut());
+
     }
 }

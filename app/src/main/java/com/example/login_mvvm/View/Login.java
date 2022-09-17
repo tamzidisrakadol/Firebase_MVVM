@@ -47,12 +47,9 @@ public class Login extends Fragment {
 
         //ViewModel
         authViewModel= new ViewModelProvider(requireActivity()).get(AuthViewModel.class);
-        authViewModel.getUserMutableLiveData().observe(getViewLifecycleOwner(), new Observer<FirebaseUser>() {
-            @Override
-            public void onChanged(FirebaseUser firebaseUser) {
-                if (firebaseUser!=null){
-                    navController.navigate(R.id.action_login_to_home2);
-                }
+        authViewModel.getUserMutableLiveData().observe(getViewLifecycleOwner(), firebaseUser -> {
+            if (firebaseUser!=null){
+                navController.navigate(R.id.action_login_to_home2);
             }
         });
 
