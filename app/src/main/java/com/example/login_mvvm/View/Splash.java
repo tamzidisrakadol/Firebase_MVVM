@@ -72,9 +72,8 @@ public class Splash extends Fragment {
         authViewModel = new ViewModelProvider(requireActivity()).get(AuthViewModel.class);
         authViewModel.getUserMutableLiveData().observe(getViewLifecycleOwner(), firebaseUser -> {
             if (firebaseUser!=null){
-                navController.navigate(R.id.action_splash_to_home2);
+                    navController.navigate(R.id.action_splash_to_home2);
             }
-
         });
 
         //login_btn

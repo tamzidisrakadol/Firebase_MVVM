@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.login_mvvm.R;
 import com.example.login_mvvm.ViewModels.AuthViewModel;
@@ -46,8 +47,9 @@ public class Profile extends Fragment {
         });
         authViewModel.getLogUser().observe(getViewLifecycleOwner(), loggout -> {
             if (loggout){
-                navController.navigate(R.id.action_profile_to_splash);
-
+             //   navController.navigate(R.id.action_profile_to_splash);
+                requireActivity().finish();
+                Toast.makeText(getContext(), "User Sign-Out", Toast.LENGTH_SHORT).show();
             }
         });
 
