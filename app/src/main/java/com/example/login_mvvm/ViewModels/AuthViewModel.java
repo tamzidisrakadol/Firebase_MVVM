@@ -7,6 +7,7 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.example.login_mvvm.Model.FUser;
 import com.example.login_mvvm.Repository.AuthRepo;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -14,6 +15,8 @@ public class AuthViewModel extends AndroidViewModel {
     AuthRepo authRepo;
     MutableLiveData<FirebaseUser> userMutableLiveData;
     MutableLiveData<Boolean> logUser;
+    MutableLiveData<FUser> fUserMutableLiveData;
+
 
     //authViewModel constructor
     public AuthViewModel(@NonNull Application application) {
@@ -21,20 +24,21 @@ public class AuthViewModel extends AndroidViewModel {
         authRepo = new AuthRepo(application);
         userMutableLiveData = authRepo.getFirebaseUserMutableLiveData();
         logUser = authRepo.getLogUserLiveData();
+        fUserMutableLiveData = authRepo.getFuserMutableLiveData();
     }
 
     //authregister
-    public void authRegister(String name,String email,String pass,String address) {
-        authRepo.register(name,email,pass,address);
+    public void authRegister(String name, String email, String pass, String address) {
+        authRepo.register(name, email, pass, address);
     }
 
     //login user
-    public void loginUser(String email,String pass){
+    public void loginUser(String email, String pass) {
         authRepo.loginUser(email, pass);
     }
 
     //logout user
-    public void logOut(){
+    public void logOut() {
         authRepo.logOut();
     }
 
@@ -44,6 +48,10 @@ public class AuthViewModel extends AndroidViewModel {
 
     public MutableLiveData<Boolean> getLogUser() {
         return logUser;
+    }
+
+    public MutableLiveData<FUser> getfUserMutableLiveData() {
+        return fUserMutableLiveData;
     }
 
 }

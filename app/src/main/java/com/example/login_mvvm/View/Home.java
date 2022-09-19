@@ -18,10 +18,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.example.login_mvvm.Model.FUser;
 import com.example.login_mvvm.R;
 import com.example.login_mvvm.ViewModels.AuthViewModel;
 import com.example.login_mvvm.databinding.FragmentHomeBinding;
 import com.google.firebase.auth.FirebaseUser;
+import com.squareup.picasso.Picasso;
 
 public class Home extends Fragment {
     FragmentHomeBinding fragmentHomeBinding;
@@ -71,6 +73,7 @@ public class Home extends Fragment {
                 fragmentHomeBinding.emailTV.setText(firebaseUser.getEmail());
             }
         });
+
 
         fragmentHomeBinding.homeProfileImg.setOnClickListener(v -> {
             navController.navigate(R.id.action_home2_to_profile);

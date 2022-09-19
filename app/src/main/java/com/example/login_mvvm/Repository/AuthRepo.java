@@ -11,6 +11,7 @@ import androidx.navigation.NavAction;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
+import com.example.login_mvvm.Model.FUser;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -18,7 +19,10 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -29,6 +33,7 @@ public class AuthRepo {
     FirebaseAuth firebaseAuth;
     public MutableLiveData<FirebaseUser> firebaseUserMutableLiveData;
     public MutableLiveData<Boolean> logUserLiveData;
+    public MutableLiveData<FUser> fuserMutableLiveData;
 
     //authrepo constructor
     public AuthRepo(Application application) {
@@ -36,6 +41,7 @@ public class AuthRepo {
         firebaseAuth =FirebaseAuth.getInstance();
         firebaseUserMutableLiveData = new MutableLiveData<>();
         logUserLiveData = new MutableLiveData<>();
+        fuserMutableLiveData = new MutableLiveData<>();
 
         if (firebaseAuth.getCurrentUser() != null){
             firebaseUserMutableLiveData.postValue(firebaseAuth.getCurrentUser());
@@ -107,11 +113,15 @@ public class AuthRepo {
         logUserLiveData.postValue(true);
     }
 
+
     public MutableLiveData<FirebaseUser> getFirebaseUserMutableLiveData() {
         return firebaseUserMutableLiveData;
     }
 
     public MutableLiveData<Boolean> getLogUserLiveData() {
         return logUserLiveData;
+    }
+    public MutableLiveData<FUser> getFuserMutableLiveData() {
+        return fuserMutableLiveData;
     }
 }

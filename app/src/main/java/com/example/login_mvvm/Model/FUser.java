@@ -4,11 +4,13 @@ public class FUser {
     String name;
     String email;
     String address;
+    String imgurl;
 
-    public FUser(String name, String email, String address) {
+    public FUser(String name, String email, String address,String imgurl) {
         this.name = name;
         this.email = email;
         this.address = address;
+        this.imgurl = imgurl;
     }
 
     public FUser() {
@@ -36,5 +38,12 @@ public class FUser {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+    public String getImgurl() {
+        return imgurl;
+    }
+
+    public void setImgurl(String imgurl) {
+        this.imgurl = imgurl;
     }
 }
