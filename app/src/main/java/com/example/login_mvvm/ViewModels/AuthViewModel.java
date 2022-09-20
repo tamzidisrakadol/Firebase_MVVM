@@ -15,7 +15,7 @@ public class AuthViewModel extends AndroidViewModel {
     AuthRepo authRepo;
     MutableLiveData<FirebaseUser> userMutableLiveData;
     MutableLiveData<Boolean> logUser;
-    MutableLiveData<FUser> fUserMutableLiveData;
+
 
 
     //authViewModel constructor
@@ -24,7 +24,7 @@ public class AuthViewModel extends AndroidViewModel {
         authRepo = new AuthRepo(application);
         userMutableLiveData = authRepo.getFirebaseUserMutableLiveData();
         logUser = authRepo.getLogUserLiveData();
-        fUserMutableLiveData = authRepo.getFuserMutableLiveData();
+
     }
 
     //authregister
@@ -50,8 +50,6 @@ public class AuthViewModel extends AndroidViewModel {
         return logUser;
     }
 
-    public MutableLiveData<FUser> getfUserMutableLiveData() {
-        return fUserMutableLiveData;
-    }
+
 
 }

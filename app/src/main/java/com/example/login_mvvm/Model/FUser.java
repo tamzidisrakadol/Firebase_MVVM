@@ -1,16 +1,18 @@
 package com.example.login_mvvm.Model;
 
 public class FUser {
+    // model name should be same as database table name
+
     String name;
     String email;
     String address;
-    String imgurl;
+    String profileImg;
 
-    public FUser(String name, String email, String address,String imgurl) {
+    public FUser(String name, String email, String address,String profileImg) {
         this.name = name;
         this.email = email;
         this.address = address;
-        this.imgurl = imgurl;
+        this.profileImg = profileImg;
     }
 
     public FUser() {
@@ -39,11 +41,12 @@ public class FUser {
     public void setAddress(String address) {
         this.address = address;
     }
-    public String getImgurl() {
-        return imgurl;
+
+    public String getProfileImg() {
+        return profileImg;
     }
 
-    public void setImgurl(String imgurl) {
-        this.imgurl = imgurl;
+    public void setProfileImg(String profileImg) {
+        this.profileImg = profileImg;
     }
 }

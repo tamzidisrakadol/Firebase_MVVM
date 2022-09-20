@@ -33,7 +33,7 @@ public class AuthRepo {
     FirebaseAuth firebaseAuth;
     public MutableLiveData<FirebaseUser> firebaseUserMutableLiveData;
     public MutableLiveData<Boolean> logUserLiveData;
-    public MutableLiveData<FUser> fuserMutableLiveData;
+
 
     //authrepo constructor
     public AuthRepo(Application application) {
@@ -41,7 +41,7 @@ public class AuthRepo {
         firebaseAuth =FirebaseAuth.getInstance();
         firebaseUserMutableLiveData = new MutableLiveData<>();
         logUserLiveData = new MutableLiveData<>();
-        fuserMutableLiveData = new MutableLiveData<>();
+
 
         if (firebaseAuth.getCurrentUser() != null){
             firebaseUserMutableLiveData.postValue(firebaseAuth.getCurrentUser());
@@ -121,7 +121,5 @@ public class AuthRepo {
     public MutableLiveData<Boolean> getLogUserLiveData() {
         return logUserLiveData;
     }
-    public MutableLiveData<FUser> getFuserMutableLiveData() {
-        return fuserMutableLiveData;
-    }
+
 }
